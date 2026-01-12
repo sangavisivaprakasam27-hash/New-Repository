@@ -38,10 +38,10 @@ jobs:
       # 5️⃣ Create delta package
       - name: Create delta packages
         run: |
-          mkdir changed-sources
+          mkdir -p changed-sources
           sf sgd source delta \
             --to HEAD \
-            --from HEAD~1 \
+            --from HEAD^ \
             --output changed-sources \
             --generate-delta \
             --source force-app
@@ -50,7 +50,7 @@ jobs:
       # 6️⃣ Authenticate to Salesforce using JWT
       - name: Authenticate to Salesforce
         run: |
-          echo "${{ secrets.JWT_SERVER_KEY }}" > server.key
+          printf "%s" "${{ secrets.JWT_SERVER_KEY }}" > server.key
           sf org login jwt \
             --username ${{ secrets.DEPLOYMENT_USER_NAME }} \
             --jwt-key-file server.key \
