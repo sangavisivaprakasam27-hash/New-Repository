@@ -1,11 +1,10 @@
-name: Deploy to sffnoobs environment on push to main
-
 on:
   push:
     branches:
       - main
     paths:
       - 'force-app/**'
+  workflow_dispatch:
 
 jobs:
   deploy-to-sffnoobs-environment:
